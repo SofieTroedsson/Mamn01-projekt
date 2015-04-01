@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Tax</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="new_game">New game</string>
+    <string name="options">Options</string>
+    <string name="information">Information</string>
+    <string name="sound_on">Sound ON</string>
+    <string name="sound_off">Sound OFF</string>
+    <string name="music_on">Music ON</string>
+    <string name="music_off">Music OFF</string>
+</resources>
