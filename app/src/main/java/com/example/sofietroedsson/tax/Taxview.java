@@ -43,7 +43,7 @@ public class Taxview extends View{
 
             // Load images
             Resources res = context.getResources();
-            //greenImage = res.getDrawable(R.drawable.greenstar);
+            greenImage = res.getDrawable(R.drawable.greenstar);
             redImage = res.getDrawable(R.drawable.redstar);
             yellowImage = res.getDrawable(R.drawable.yellowstar);
 
