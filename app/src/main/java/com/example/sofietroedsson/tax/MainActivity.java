@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Button button = (Button) findViewById(R.id.button);
         Button button2 = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button3);
-        button.setOnClickListener( this);
+        button.setOnClickListener(this);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
     }
@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 break;
             }
             case R.id.button3: {
-
+                startActivity(new Intent(this, Test.class));
                 break;
 
             }
