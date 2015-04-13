@@ -80,6 +80,7 @@ public class Taxview extends View{
             drawApples(canvas);
             drawSnake(canvas);
             drawStatus(canvas);
+            drawMeet(canvas);
         }
 
         // This class defines actions on touch events.
@@ -169,6 +170,17 @@ public class Taxview extends View{
                 yellowImage.draw(canvas);
             }
         }
+
+    private void drawMeet(Canvas canvas) {
+        for (Point p : snakeModel.getMeet()) {
+            int left = (int) (tileXPixels * p.x);
+            int top = (int) (tileYPixels * p.y);
+            int right = (int) (tileXPixels * (p.x + 1));
+            int bottom = (int) (tileYPixels * (p.y + 1));
+            greenImage.setBounds(left, top, right, bottom);
+            greenImage.draw(canvas);
+        }
+    }
 
         private void drawStatus(Canvas canvas) {
             mPaint.setTextSize(36);

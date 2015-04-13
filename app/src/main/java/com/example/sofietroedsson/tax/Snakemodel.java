@@ -20,17 +20,19 @@ import java.util.Random;
             this.boardHeight = boardHeight;
         }
 
-        public static final int POINTS_PER_APPLE = 10;
+        public static final int POINTS_PER_APPLE = 1;
+        public static final int POINTS_PER_MEET = 2;
 
         private int boardWidth, boardHeight;
 
         private State mState = State.READY;
         private Direction mDirection = Direction.NORTH;
 
-        private long mScore = 0;
+        private long highScore = 0;
 
         private ArrayList<Point> mSnakeTrail = new ArrayList<Point>();
         private ArrayList<Point> mApples = new ArrayList<Point>();
+    private ArrayList<Point> mMeet = new ArrayList<Point>();
 
         private static final Random random = new Random();
 
@@ -42,6 +44,7 @@ import java.util.Random;
         public void initNewGame() {
             mSnakeTrail.clear();
             mApples.clear();
+            mMeet.clear();
 
             int startX = boardWidth/2;
             int startY = boardHeight/2;
@@ -54,8 +57,10 @@ import java.util.Random;
 
             addApple();
             addApple();
+            addMeet();
+            addMeet();
 
-            mScore = 0;
+            highScore = 0;
 
             mState = State.READY;
         }
@@ -78,6 +83,9 @@ import java.util.Random;
         public ArrayList<Point> getApples() {
             return (ArrayList<Point>) mApples.clone();
         }
+        public ArrayList<Point> getMeet() {
+        return (ArrayList<Point>) mMeet.clone();
+    }
 
         public Direction getDirection() {
             return mDirection;
@@ -88,7 +96,7 @@ import java.util.Random;
         }
 
         public long getScore() {
-            return mScore;
+            return highScore;
         }
 
         public int getBoardWidth() {
@@ -172,6 +180,7 @@ import java.util.Random;
             if (mState == State.RUNNING) {
                 updateSnake();
                 updateApples();
+                updateMeet();
             }
         }
 
@@ -244,9 +253,30 @@ import java.util.Random;
             // If head overlaps an apple - remove and add points
             boolean wasRemoved = mApples.remove(head);
             if (wasRemoved) {
-                mScore += POINTS_PER_APPLE;
+                highScore += POINTS_PER_APPLE;
+                addApple();
             }
         }
+    private void addMeet() {
+        Point newMeet = null;
+        do {
+            newMeet = new Point(random.nextInt(boardWidth),
+                    random.nextInt(boardHeight));
+            // Make sure we do not select a point under the snake trail
+        } while (mSnakeTrail.contains(newMeet));
+
+        mMeet.add(newMeet);
+    }
+
+    private void updateMeet() {
+        Point head = mSnakeTrail.get(0);
+        // If head overlaps an apple - remove and add points
+        boolean wasRemoved = mMeet.remove(head);
+        if (wasRemoved) {
+            highScore += POINTS_PER_MEET;
+            addMeet();
+        }
+    }
     }
 
 
