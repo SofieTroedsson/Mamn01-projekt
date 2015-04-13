@@ -36,7 +36,7 @@ public class Taxview extends View{
 
         private Snakemodel snakeModel;
         private Drawable greenImage, redImage, yellowImage;
-        private long mLastMove, mMoveDelay = 500; // milliseconds
+        private long mLastMove, mMoveDelay = 400; // milliseconds
 
         public Taxview(Context context, AttributeSet attributes) {
             super(context, attributes);
