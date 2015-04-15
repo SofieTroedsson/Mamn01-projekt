@@ -18,9 +18,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Button button = (Button) findViewById(R.id.button);
         Button button2 = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button3);
+        Button button4 = (Button) findViewById(R.id.button4);
         button.setOnClickListener(this);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
+        button4.setOnClickListener(this);
     }
 
     public void onClick(View v){
@@ -38,6 +40,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 startActivity(new Intent(this, Test.class));
                 break;
 
+            }
+            case R.id.button4:{
+                startActivity(new Intent(this, highScore.class));
+                break;
             }
 
         }

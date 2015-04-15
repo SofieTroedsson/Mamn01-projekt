@@ -1,5 +1,8 @@
 package com.example.sofietroedsson.tax;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -28,7 +31,8 @@ import java.util.Random;
         private State mState = State.READY;
         private Direction mDirection = Direction.NORTH;
 
-        private long highScore = 0;
+        private int score = 0;
+        private String highScore = "";
 
         private ArrayList<Point> mSnakeTrail = new ArrayList<Point>();
         private ArrayList<Point> mApples = new ArrayList<Point>();
@@ -60,9 +64,12 @@ import java.util.Random;
             addMeet();
             addMeet();
 
-            highScore = 0;
+            score = 0;
 
             mState = State.READY;
+            if(highScore.equals("")){
+
+            }
         }
 
         /**
@@ -96,7 +103,7 @@ import java.util.Random;
         }
 
         public long getScore() {
-            return highScore;
+            return score;
         }
 
         public int getBoardWidth() {
@@ -205,13 +212,13 @@ import java.util.Random;
                     break;
             }
 
-            // Outside board?
+            // Ormen åker in i vägen
             if (snakeIsOutsideBoard(newHead)) {
                 setState(State.LOSE);
                 return;
             }
 
-            // Collision with the snake itself?
+            // Ormen kolliderar med sig själv
             for (Point body : mSnakeTrail) {
                 if (newHead.equals(body)) {
                     setState(State.LOSE);
@@ -253,7 +260,7 @@ import java.util.Random;
             // If head overlaps an apple - remove and add points
             boolean wasRemoved = mApples.remove(head);
             if (wasRemoved) {
-                highScore += POINTS_PER_APPLE;
+                score += POINTS_PER_APPLE;
                 addApple();
             }
         }
@@ -273,10 +280,31 @@ import java.util.Random;
         // If head overlaps an apple - remove and add points
         boolean wasRemoved = mMeet.remove(head);
         if (wasRemoved) {
-            highScore += POINTS_PER_MEET;
+            score += POINTS_PER_MEET;
             addMeet();
         }
     }
+    FileReader readfile = null;
+    BufferedReader reader = null;
+    public String getHighscore(){
+        try{
+            readfile = new FileReader("highscore.dat");
+            reader = new BufferedReader(readfile);
+            return reader.readLine();
+        }
+        catch(Exception e){
+            return "0";
+        }
+        finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     }
 
 
