@@ -11,3 +11,8 @@ att svänga.
 12/4-2015 
 Spelet fungerar att starta i simulatorn på datorn men vet inte om den skulle fungera på en telefon där man ska 
 använda accelerometern för att röra ormen. 
+
+
+15/4-2015
+
+Gjort vars en sida där man testar accelorometern på en medan man testar gyroscope på den andra. Båda sidorna skriver ut X,Y,Z.
