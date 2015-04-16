@@ -27,11 +27,13 @@ public class Tax extends ActionBarActivity{
 
             // Create the sensor listener
             accelerometerListener = new AccelerometerListener();
+
         }
 
         private SensorManager sensorManager;
         private Sensor accelerometerSensor;
         private AccelerometerListener accelerometerListener;
+
 
         // A listener for sensor events
         private class AccelerometerListener implements SensorEventListener {

@@ -35,7 +35,7 @@ import com.example.sofietroedsson.tax.State;
 public class Taxview extends View{
 
         private Snakemodel snakeModel;
-        private Drawable greenImage, redImage, yellowImage;
+        private Drawable greenImage, redImage, yellowImage, taxImage;
         private long mLastMove, mMoveDelay = 400; // milliseconds
 
         public Taxview(Context context, AttributeSet attributes) {
@@ -46,6 +46,7 @@ public class Taxview extends View{
             greenImage = res.getDrawable(R.drawable.greenstar);
             redImage = res.getDrawable(R.drawable.redstar);
             yellowImage = res.getDrawable(R.drawable.yellowstar);
+            taxImage = res.getDrawable(R.drawable.taxhuvud);
 
             this.setOnTouchListener(new SnakeTouchListener());
         }
@@ -79,6 +80,7 @@ public class Taxview extends View{
             drawBorder(canvas);
             drawApples(canvas);
             drawSnake(canvas);
+            drawTaxhuvud(canvas);
             drawStatus(canvas);
             drawMeet(canvas);
         }
@@ -141,7 +143,7 @@ public class Taxview extends View{
         }
 
         private void drawBorder(Canvas canvas) {
-            mPaint.setColor(Color.RED);
+            mPaint.setColor(Color.BLACK);
             canvas.drawRect(0, 0, (int) widthPixels, (int) heightPixels, mPaint);
             int border = 2;
             mPaint.setColor(Color.WHITE);
@@ -155,8 +157,19 @@ public class Taxview extends View{
                 int top = (int) (tileYPixels * p.y);
                 int right = (int) (tileXPixels * (p.x + 1));
                 int bottom = (int) (tileYPixels * (p.y + 1));
-                redImage.setBounds(left, top, right, bottom);
+                redImage.setBounds(left,top, right, bottom);
                 redImage.draw(canvas);
+            }
+        }
+
+        private void drawTaxhuvud(Canvas canvas){
+            for(Point p : snakeModel.getTaxhuvud()){
+                int left = (int) (tileXPixels * p.x);
+                int top = (int) (tileYPixels * p.y);
+                int right = (int) (tileXPixels * (p.x + 1));
+                int bottom = (int) (tileYPixels * (p.y + 1));
+                taxImage.setBounds(left,top, right, bottom);
+                taxImage.draw(canvas);
             }
         }
 

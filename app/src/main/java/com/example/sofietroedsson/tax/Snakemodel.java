@@ -12,12 +12,10 @@ import java.util.Random;
 
     public class Snakemodel {
 
-        /**
-         * Creates a new SnakeModel with the stated dimensions
-         * measured in snake segments.
-         * @param boardWidth The board width
-         * @param boardHeight The board height
-         */
+
+         //@param boardWidth The board width
+         //@param boardHeight The board height
+
         public Snakemodel(int boardWidth, int boardHeight) {
             this.boardWidth = boardWidth;
             this.boardHeight = boardHeight;
@@ -37,6 +35,7 @@ import java.util.Random;
         private ArrayList<Point> mSnakeTrail = new ArrayList<Point>();
         private ArrayList<Point> mApples = new ArrayList<Point>();
     private ArrayList<Point> mMeet = new ArrayList<Point>();
+    private ArrayList<Point> mTaxhuvud = new ArrayList<Point>();
 
         private static final Random random = new Random();
 
@@ -49,11 +48,12 @@ import java.util.Random;
             mSnakeTrail.clear();
             mApples.clear();
             mMeet.clear();
+            mTaxhuvud.clear();
 
             int startX = boardWidth/2;
             int startY = boardHeight/2;
             mDirection = Direction.NORTH;
-            mSnakeTrail.add(new Point(startX, startY));
+            mTaxhuvud.add(new Point(startX, startY));
             mSnakeTrail.add(new Point(startX, startY+1));
             mSnakeTrail.add(new Point(startX, startY+2));
             mSnakeTrail.add(new Point(startX, startY+3));
@@ -72,21 +72,10 @@ import java.util.Random;
             }
         }
 
-        /**
-         * Returns a <em>copy</em> of the list representing the
-         * snake trail (positions head to tail).
-         * @return
-         */
-        @SuppressWarnings("unchecked")
-        public ArrayList<Point> getSnakeTrail() {
-            return (ArrayList<Point>) mSnakeTrail.clone();
-        }
 
-        /**
-         * Returns a <em>copy</em> of the list of apples.
-         * @return
-         */
-        @SuppressWarnings("unchecked")
+        public ArrayList<Point> getSnakeTrail() {return (ArrayList<Point>) mSnakeTrail.clone();}
+        public ArrayList<Point> getTaxhuvud() {return (ArrayList<Point>) mTaxhuvud.clone();}
+
         public ArrayList<Point> getApples() {
             return (ArrayList<Point>) mApples.clone();
         }
@@ -185,51 +174,98 @@ import java.util.Random;
          */
         public void move() {
             if (mState == State.RUNNING) {
-                updateSnake();
+                //updateSnake();
                 updateApples();
                 updateMeet();
+                updateTaxhuvud();
             }
         }
-
-        private void updateSnake() {
-            Point head = mSnakeTrail.get(0);
+        private void updateTaxhuvud(){
             Point newHead = null;
+            Point head = mTaxhuvud.get(0);
+            Point trail = mSnakeTrail.get(0);
+            Point newTrail = null;
 
             switch (mDirection) {
                 case NORTH:
                     newHead = new Point(head.x, head.y - 1);
+                    newTrail = new Point(trail.x, trail.y - 1);
                     break;
                 case SOUTH:
                     newHead = new Point(head.x, head.y + 1);
+                    newTrail = new Point(trail.x, trail.y + 1);
                     break;
                 case EAST:
                     newHead = new Point(head.x + 1, head.y);
+                    newTrail = new Point(trail.x + 1, trail.y );
                     break;
                 case WEST:
                     newHead = new Point(head.x - 1, head.y);
+                    newTrail = new Point(trail.x -1, trail.y );
                     break;
                 default:
                     break;
             }
 
-            // Ormen åker in i vägen
             if (snakeIsOutsideBoard(newHead)) {
                 setState(State.LOSE);
                 return;
             }
 
             // Ormen kolliderar med sig själv
-            for (Point body : mSnakeTrail) {
-                if (newHead.equals(body)) {
+            for (Point taxHead : mTaxhuvud) {
+                if (newHead.equals(trail)) {
                     setState(State.LOSE);
                     return;
                 }
             }
+            for(Point body : mSnakeTrail ){
+                if(newTrail.equals(body)) {
+                    setState(State.LOSE);
+                }
+            }
 
-            // So far, so good. Add the new head and remove the tail
-            mSnakeTrail.add(0, newHead);
+            mTaxhuvud.add(0, newHead);
+            mTaxhuvud.remove(mTaxhuvud.size()-1);
+            mSnakeTrail.add(1, newTrail);
             mSnakeTrail.remove(mSnakeTrail.size() - 1);
         }
+       /* private void updateSnake() {
+            Point trail = mSnakeTrail.get(0);
+            Point newTrail = null;
+
+
+
+            switch (mDirection) {
+                case NORTH:
+                    newTrail = new Point(trail.x, trail.y - 1);
+                    break;
+                case SOUTH:
+                    newTrail = new Point(trail.x, trail.y + 1);
+                    break;
+                case EAST:
+                    newTrail = new Point(trail.x + 1, trail.y);
+                    break;
+                case WEST:
+                    newTrail = new Point(trail.x - 1, trail.y);
+                    break;
+                default:
+                    break;
+            }
+
+            // Ormen åker in i vägen
+
+            for(Point body : mSnakeTrail ){
+                if(newTrail.equals(body)) {
+                    setState(State.LOSE);
+                }
+            }
+
+            // So far, so good. Add the new head and remove the tail
+            mSnakeTrail.add(0, newTrail);
+            mSnakeTrail.remove(mSnakeTrail.size() - 1);
+
+        }*/
 
         private boolean snakeIsOutsideBoard(Point head) {
             if (head.x >= boardWidth)
@@ -250,13 +286,13 @@ import java.util.Random;
                 newApple = new Point(random.nextInt(boardWidth),
                         random.nextInt(boardHeight));
                 // Make sure we do not select a point under the snake trail
-            } while (mSnakeTrail.contains(newApple));
+            } while (mTaxhuvud.contains(newApple));
 
             mApples.add(newApple);
         }
 
         private void updateApples() {
-            Point head = mSnakeTrail.get(0);
+            Point head = mTaxhuvud.get(0);
             // If head overlaps an apple - remove and add points
             boolean wasRemoved = mApples.remove(head);
             if (wasRemoved) {
@@ -270,13 +306,13 @@ import java.util.Random;
             newMeet = new Point(random.nextInt(boardWidth),
                     random.nextInt(boardHeight));
             // Make sure we do not select a point under the snake trail
-        } while (mSnakeTrail.contains(newMeet));
+        } while (mTaxhuvud.contains(newMeet));
 
         mMeet.add(newMeet);
     }
 
     private void updateMeet() {
-        Point head = mSnakeTrail.get(0);
+        Point head = mTaxhuvud.get(0);
         // If head overlaps an apple - remove and add points
         boolean wasRemoved = mMeet.remove(head);
         if (wasRemoved) {
