@@ -16,3 +16,7 @@ använda accelerometern för att röra ormen.
 15/4-2015
 
 Gjort vars en sida där man testar accelorometern på en medan man testar gyroscope på den andra. Båda sidorna skriver ut X,Y,Z.
+
+16/4-2015
+
+Lagt till ett taxhuvud som första bild i masken men just nu synkar inte huvudet med resten av masken. 
