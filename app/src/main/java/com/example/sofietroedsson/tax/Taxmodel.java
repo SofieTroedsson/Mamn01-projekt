@@ -73,7 +73,7 @@ import java.util.Random;
         }
 
 
-        public ArrayList<Point> getSnakeTrail() {return (ArrayList<Point>) mTaxTrail.clone();}
+        public ArrayList<Point> getTaxTrail() {return (ArrayList<Point>) mTaxTrail.clone();}
         public ArrayList<Point> getTaxhuvud() {return (ArrayList<Point>) mTaxhuvud.clone();}
 
         public ArrayList<Point> getApples() {
@@ -197,7 +197,7 @@ import java.util.Random;
                     break;
                 case EAST:
                     newHead = new Point(head.x + 1, head.y);
-                    newTrail = new Point(trail.x + 1, trail.y );
+                    newTrail = new Point(trail.x + 1 , head.y );
                     break;
                 case WEST:
                     newHead = new Point(head.x - 1, head.y);
@@ -225,9 +225,15 @@ import java.util.Random;
                 }
             }
 
+
+          // for(Point taxHead : mTaxhuvud ){
+          //     if(newTrail.equals(head)) {
+          //         setState(State.LOSE);
+          //     }
+          // }
             mTaxhuvud.add(0, newHead);
             mTaxhuvud.remove(mTaxhuvud.size() - 1);
-            mTaxTrail.add(1, newTrail);
+            mTaxTrail.add(0, newTrail);
             mTaxTrail.remove(mTaxTrail.size() - 1);
         }
        /* private void updateSnake() {
@@ -298,6 +304,8 @@ import java.util.Random;
             if (wasRemoved) {
                 score += POINTS_PER_APPLE;
                 addApple();
+                grow();
+
             }
         }
     private void addMeat() {
@@ -318,8 +326,14 @@ import java.util.Random;
         if (wasRemoved) {
             score += POINTS_PER_MEAT;
             addMeat();
+            grow();
         }
     }
+
+    private void grow(){
+                Point addnew = mTaxTrail.get(0);
+            mTaxTrail.add(0,addnew);
+        }
     FileReader readfile = null;
     BufferedReader reader = null;
     public String getHighscore(){

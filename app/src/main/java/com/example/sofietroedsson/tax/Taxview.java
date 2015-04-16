@@ -64,7 +64,7 @@ public class Taxview extends View{
 
             drawBorder(canvas);
             drawApples(canvas);
-            drawSnake(canvas);
+            drawTrail(canvas);
             drawTaxhuvud(canvas);
             drawStatus(canvas);
             drawMeet(canvas);
@@ -136,8 +136,8 @@ public class Taxview extends View{
                     (int) (heightPixels - border), mPaint);
         }
 
-        private void drawSnake(Canvas canvas) {
-            for (Point p : taxModel.getSnakeTrail()) {
+        private void drawTrail(Canvas canvas) {
+            for (Point p : taxModel.getTaxTrail()) {
                 int left = (int) (tileXPixels * p.x);
                 int top = (int) (tileYPixels * p.y);
                 int right = (int) (tileXPixels * (p.x + 1));
