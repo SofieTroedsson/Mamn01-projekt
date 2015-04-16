@@ -20,3 +20,8 @@ Gjort vars en sida där man testar accelorometern på en medan man testar gyrosc
 16/4-2015
 
 Lagt till ett taxhuvud som första bild i masken men just nu synkar inte huvudet med resten av masken. 
+
+
+16/4-2015
+
+Taxen är synkad och växer ju fler fruktor som man äter.
