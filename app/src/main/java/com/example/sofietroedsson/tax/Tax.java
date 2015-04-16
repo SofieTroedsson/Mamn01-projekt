@@ -16,14 +16,14 @@ import android.view.MenuItem;
  */
 public class Tax extends ActionBarActivity{
 
-        private Taxview snakeView;
+        private Taxview taxview;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_tax);
 
-            snakeView = (Taxview) findViewById(R.id.snake);
+            taxview = (Taxview) findViewById(R.id.snake);
 
             // Create the sensor listener
             accelerometerListener = new AccelerometerListener();
@@ -47,19 +47,19 @@ public class Tax extends ActionBarActivity{
                 double az = event.values[2];
                 long time = event.timestamp;
 
-                Snakemodel snakeModel = snakeView.getSnakeModel();
+                Taxmodel taxModel = taxview.getTaxModel();
 
                 if(ay > ACC_THRESHOLD) {
                     Log.i("SnakeSensor", "South down");
-                    snakeModel.setDirection(Direction.SOUTH);
+                    taxModel.setDirection(Direction.SOUTH);
                 }else if(ay < -ACC_THRESHOLD) {
                     Log.i("SnakeSensor", "North down");
-                    snakeModel.setDirection(Direction.NORTH); }
+                    taxModel.setDirection(Direction.NORTH); }
                 if(ax > ACC_THRESHOLD) {
                     Log.i("SnakeSensor", "West down");
-                    snakeModel.setDirection(Direction.WEST);
+                    taxModel.setDirection(Direction.WEST);
                 }else if(ax < -ACC_THRESHOLD) { Log.i("SnakeSensor", "East down");
-                    snakeModel.setDirection(Direction.EAST); }
+                    taxModel.setDirection(Direction.EAST); }
 
                 // This is where you put the code checking the values
                 // ax and ay (acceleration in x and y direction).
@@ -78,7 +78,7 @@ public class Tax extends ActionBarActivity{
         @Override
         protected void onPause() {
             super.onPause();
-            snakeView.pauseAnimation();
+            taxview.pauseAnimation();
             // Unregister the sensor listener
             stopListening();
 
@@ -88,7 +88,7 @@ public class Tax extends ActionBarActivity{
         @Override
         protected void onResume() {
             super.onResume();
-            snakeView.resumeAnimation();
+            taxview.resumeAnimation();
             // Register the sensor listener
             startListening();
 

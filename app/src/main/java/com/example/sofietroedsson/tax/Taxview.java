@@ -5,28 +5,13 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.GestureDetectorCompat;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.sofietroedsson.tax.Direction;
-import com.example.sofietroedsson.tax.Point;
-import com.example.sofietroedsson.tax.Snakemodel;
-import com.example.sofietroedsson.tax.State;
-
 
 
 /**
@@ -34,7 +19,7 @@ import com.example.sofietroedsson.tax.State;
  */
 public class Taxview extends View{
 
-        private Snakemodel snakeModel;
+        private Taxmodel taxModel;
         private Drawable greenImage, redImage, yellowImage, taxImage;
         private long mLastMove, mMoveDelay = 400; // milliseconds
 
@@ -52,18 +37,18 @@ public class Taxview extends View{
         }
 
         public void startAnimation() {
-            snakeModel.initNewGame();
-            snakeModel.setState(State.RUNNING);
+            taxModel.initNewGame();
+            taxModel.setState(State.RUNNING);
             this.update();
         }
 
         public void pauseAnimation() {
-            snakeModel.setState(State.PAUSED);
+            taxModel.setState(State.PAUSED);
         }
 
         public void resumeAnimation() {
-            if (snakeModel != null && snakeModel.getState() == State.PAUSED) {
-                snakeModel.setState(State.RUNNING);
+            if (taxModel != null && taxModel.getState() == State.PAUSED) {
+                taxModel.setState(State.RUNNING);
                 this.update();
             }
         }
@@ -72,7 +57,7 @@ public class Taxview extends View{
         // The method is called, implicitly, through view.invalidate().
         public void onDraw(Canvas canvas) {
 
-            if (snakeModel == null) {
+            if (taxModel == null) {
                 initModel();
                 startAnimation();
             }
@@ -113,7 +98,7 @@ public class Taxview extends View{
             }
         }
 
-        public Snakemodel getModel() { return snakeModel; }
+        public Taxmodel getModel() { return taxModel; }
 
         private void turnSnakeOnTouchEvent(MotionEvent event) {
             // Touch screen pressed
@@ -122,24 +107,24 @@ public class Taxview extends View{
             int x = (int) event.getX();
             int y = (int) event.getY();
 
-            if (snakeModel.getDirection() == Direction.SOUTH ||
-                    snakeModel.getDirection() == Direction.NORTH) {
+            if (taxModel.getDirection() == Direction.SOUTH ||
+                    taxModel.getDirection() == Direction.NORTH) {
                 if (x < centerX) {
-                    snakeModel.setDirection(Direction.WEST);
+                    taxModel.setDirection(Direction.WEST);
                 } else {
-                    snakeModel.setDirection(Direction.EAST);
+                    taxModel.setDirection(Direction.EAST);
                 }
             } else { // i.e. WEST or EAST
                 if (y < centerY) {
-                    snakeModel.setDirection(Direction.NORTH);
+                    taxModel.setDirection(Direction.NORTH);
                 } else {
-                    snakeModel.setDirection(Direction.SOUTH);
+                    taxModel.setDirection(Direction.SOUTH);
                 }
             }
         }
 
-        public Snakemodel getSnakeModel() {
-            return snakeModel;
+        public Taxmodel getTaxModel() {
+            return taxModel;
         }
 
         private void drawBorder(Canvas canvas) {
@@ -152,7 +137,7 @@ public class Taxview extends View{
         }
 
         private void drawSnake(Canvas canvas) {
-            for (Point p : snakeModel.getSnakeTrail()) {
+            for (Point p : taxModel.getSnakeTrail()) {
                 int left = (int) (tileXPixels * p.x);
                 int top = (int) (tileYPixels * p.y);
                 int right = (int) (tileXPixels * (p.x + 1));
@@ -163,7 +148,7 @@ public class Taxview extends View{
         }
 
         private void drawTaxhuvud(Canvas canvas){
-            for(Point p : snakeModel.getTaxhuvud()){
+            for(Point p : taxModel.getTaxhuvud()){
                 int left = (int) (tileXPixels * p.x);
                 int top = (int) (tileYPixels * p.y);
                 int right = (int) (tileXPixels * (p.x + 1));
@@ -174,7 +159,7 @@ public class Taxview extends View{
         }
 
         private void drawApples(Canvas canvas) {
-            for (Point p : snakeModel.getApples()) {
+            for (Point p : taxModel.getApples()) {
                 int left = (int) (tileXPixels * p.x);
                 int top = (int) (tileYPixels * p.y);
                 int right = (int) (tileXPixels * (p.x + 1));
@@ -185,7 +170,7 @@ public class Taxview extends View{
         }
 
     private void drawMeet(Canvas canvas) {
-        for (Point p : snakeModel.getMeet()) {
+        for (Point p : taxModel.getMeat()) {
             int left = (int) (tileXPixels * p.x);
             int top = (int) (tileYPixels * p.y);
             int right = (int) (tileXPixels * (p.x + 1));
@@ -198,8 +183,8 @@ public class Taxview extends View{
         private void drawStatus(Canvas canvas) {
             mPaint.setTextSize(36);
             mPaint.setColor(Color.DKGRAY);
-            String message = "Score: " + snakeModel.getScore() + " | "
-                    + snakeModel.getState().toString();
+            String message = "Score: " + taxModel.getScore() + " | "
+                    + taxModel.getState().toString();
             canvas.drawText(message, 100, (int) (heightPixels - 100), mPaint);
         }
 
@@ -209,27 +194,27 @@ public class Taxview extends View{
         private void initModel() {
             int tilesX = 20;
             int tilesY = this.getHeight() * tilesX / this.getWidth();
-            snakeModel = new Snakemodel(tilesX, tilesY);
+            taxModel = new Taxmodel(tilesX, tilesY);
             calculateMetrics();
 
-            snakeModel.initNewGame();
+            taxModel.initNewGame();
         }
 
         private void calculateMetrics() {
             widthPixels = this.getWidth();
             heightPixels = this.getHeight();
-            tileXPixels = widthPixels / snakeModel.getBoardWidth();
-            tileYPixels = heightPixels / snakeModel.getBoardHeight();
+            tileXPixels = widthPixels / taxModel.getBoardWidth();
+            tileYPixels = heightPixels / taxModel.getBoardHeight();
         }
 
         // This is a simple form of animation, executed on the main thread
         public void update() {
             Log.i("SnakeView", "updated");
-            if (snakeModel.getState() == State.RUNNING) {
+            if (taxModel.getState() == State.RUNNING) {
                 long now = System.currentTimeMillis();
 
                 if (now - mLastMove > mMoveDelay) {
-                    snakeModel.move();
+                    taxModel.move();
                     this.invalidate();
                     mLastMove = now;
                 }

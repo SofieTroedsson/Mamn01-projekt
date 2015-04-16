@@ -10,19 +10,19 @@ import java.util.Random;
  * Created by sofietroedsson on 15-04-12.
  */
 
-    public class Snakemodel {
+    public class Taxmodel {
 
 
          //@param boardWidth The board width
          //@param boardHeight The board height
 
-        public Snakemodel(int boardWidth, int boardHeight) {
+        public Taxmodel(int boardWidth, int boardHeight) {
             this.boardWidth = boardWidth;
             this.boardHeight = boardHeight;
         }
 
         public static final int POINTS_PER_APPLE = 1;
-        public static final int POINTS_PER_MEET = 2;
+        public static final int POINTS_PER_MEAT = 2;
 
         private int boardWidth, boardHeight;
 
@@ -32,9 +32,9 @@ import java.util.Random;
         private int score = 0;
         private String highScore = "";
 
-        private ArrayList<Point> mSnakeTrail = new ArrayList<Point>();
+        private ArrayList<Point> mTaxTrail = new ArrayList<Point>();
         private ArrayList<Point> mApples = new ArrayList<Point>();
-    private ArrayList<Point> mMeet = new ArrayList<Point>();
+    private ArrayList<Point> mMeat = new ArrayList<Point>();
     private ArrayList<Point> mTaxhuvud = new ArrayList<Point>();
 
         private static final Random random = new Random();
@@ -45,24 +45,24 @@ import java.util.Random;
          * Game state is set to READY.
          */
         public void initNewGame() {
-            mSnakeTrail.clear();
+            mTaxTrail.clear();
             mApples.clear();
-            mMeet.clear();
+            mMeat.clear();
             mTaxhuvud.clear();
 
             int startX = boardWidth/2;
             int startY = boardHeight/2;
             mDirection = Direction.NORTH;
             mTaxhuvud.add(new Point(startX, startY));
-            mSnakeTrail.add(new Point(startX, startY+1));
-            mSnakeTrail.add(new Point(startX, startY+2));
-            mSnakeTrail.add(new Point(startX, startY+3));
-            mSnakeTrail.add(new Point(startX, startY+4));
+            mTaxTrail.add(new Point(startX, startY + 1));
+            mTaxTrail.add(new Point(startX, startY + 2));
+            mTaxTrail.add(new Point(startX, startY + 3));
+            mTaxTrail.add(new Point(startX, startY + 4));
 
             addApple();
             addApple();
-            addMeet();
-            addMeet();
+            addMeat();
+            addMeat();
 
             score = 0;
 
@@ -73,14 +73,14 @@ import java.util.Random;
         }
 
 
-        public ArrayList<Point> getSnakeTrail() {return (ArrayList<Point>) mSnakeTrail.clone();}
+        public ArrayList<Point> getSnakeTrail() {return (ArrayList<Point>) mTaxTrail.clone();}
         public ArrayList<Point> getTaxhuvud() {return (ArrayList<Point>) mTaxhuvud.clone();}
 
         public ArrayList<Point> getApples() {
             return (ArrayList<Point>) mApples.clone();
         }
-        public ArrayList<Point> getMeet() {
-        return (ArrayList<Point>) mMeet.clone();
+        public ArrayList<Point> getMeat() {
+        return (ArrayList<Point>) mMeat.clone();
     }
 
         public Direction getDirection() {
@@ -176,14 +176,14 @@ import java.util.Random;
             if (mState == State.RUNNING) {
                 //updateSnake();
                 updateApples();
-                updateMeet();
+                updateMeat();
                 updateTaxhuvud();
             }
         }
         private void updateTaxhuvud(){
             Point newHead = null;
             Point head = mTaxhuvud.get(0);
-            Point trail = mSnakeTrail.get(0);
+            Point trail = mTaxTrail.get(0);
             Point newTrail = null;
 
             switch (mDirection) {
@@ -219,19 +219,19 @@ import java.util.Random;
                     return;
                 }
             }
-            for(Point body : mSnakeTrail ){
+            for(Point body : mTaxTrail){
                 if(newTrail.equals(body)) {
                     setState(State.LOSE);
                 }
             }
 
             mTaxhuvud.add(0, newHead);
-            mTaxhuvud.remove(mTaxhuvud.size()-1);
-            mSnakeTrail.add(1, newTrail);
-            mSnakeTrail.remove(mSnakeTrail.size() - 1);
+            mTaxhuvud.remove(mTaxhuvud.size() - 1);
+            mTaxTrail.add(1, newTrail);
+            mTaxTrail.remove(mTaxTrail.size() - 1);
         }
        /* private void updateSnake() {
-            Point trail = mSnakeTrail.get(0);
+            Point trail = mTaxTrail.get(0);
             Point newTrail = null;
 
 
@@ -255,15 +255,15 @@ import java.util.Random;
 
             // Ormen åker in i vägen
 
-            for(Point body : mSnakeTrail ){
+            for(Point body : mTaxTrail ){
                 if(newTrail.equals(body)) {
                     setState(State.LOSE);
                 }
             }
 
             // So far, so good. Add the new head and remove the tail
-            mSnakeTrail.add(0, newTrail);
-            mSnakeTrail.remove(mSnakeTrail.size() - 1);
+            mTaxTrail.add(0, newTrail);
+            mTaxTrail.remove(mTaxTrail.size() - 1);
 
         }*/
 
@@ -300,24 +300,24 @@ import java.util.Random;
                 addApple();
             }
         }
-    private void addMeet() {
-        Point newMeet = null;
+    private void addMeat() {
+        Point newMeat = null;
         do {
-            newMeet = new Point(random.nextInt(boardWidth),
+            newMeat = new Point(random.nextInt(boardWidth),
                     random.nextInt(boardHeight));
             // Make sure we do not select a point under the snake trail
-        } while (mTaxhuvud.contains(newMeet));
+        } while (mTaxhuvud.contains(newMeat));
 
-        mMeet.add(newMeet);
+        mMeat.add(newMeat);
     }
 
-    private void updateMeet() {
+    private void updateMeat() {
         Point head = mTaxhuvud.get(0);
         // If head overlaps an apple - remove and add points
-        boolean wasRemoved = mMeet.remove(head);
+        boolean wasRemoved = mMeat.remove(head);
         if (wasRemoved) {
-            score += POINTS_PER_MEET;
-            addMeet();
+            score += POINTS_PER_MEAT;
+            addMeat();
         }
     }
     FileReader readfile = null;
