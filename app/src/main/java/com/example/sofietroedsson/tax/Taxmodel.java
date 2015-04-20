@@ -334,6 +334,11 @@ import java.util.Random;
                 Point addnew = mTaxTrail.get(0);
             mTaxTrail.add(0,addnew);
         }
+
+
+
+
+
     FileReader readfile = null;
     BufferedReader reader = null;
     public String getHighscore(){
