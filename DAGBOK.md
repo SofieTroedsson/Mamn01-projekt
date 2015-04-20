@@ -24,4 +24,8 @@ Lagt till ett taxhuvud som första bild i masken men just nu synkar inte huvudet
 
 16/4-2015
 
-Taxen är synkad och växer ju fler fruktor som man äter.
+Taxen är synkad och växer ju fler frukter som man äter.
+
+20/4 -2015
+
+Ändrat färg på kroppen så den matchar huvudet.
