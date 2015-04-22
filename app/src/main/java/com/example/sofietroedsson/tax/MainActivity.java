@@ -37,6 +37,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 vib.vibrate(500);
                 break;
             }
+            // fel
+
             case R.id.button2: {
                 startActivity(new Intent(this, Options.class));
                 vib.vibrate(500);
