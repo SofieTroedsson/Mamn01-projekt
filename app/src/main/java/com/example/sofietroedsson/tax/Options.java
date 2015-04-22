@@ -1,9 +1,12 @@
 package com.example.sofietroedsson.tax;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class Options extends ActionBarActivity {
@@ -23,4 +26,11 @@ public class Options extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    public void onclick(View v){
+        Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(100);
+
+    }
 }
+
+

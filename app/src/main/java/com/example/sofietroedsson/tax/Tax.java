@@ -6,10 +6,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.os.Vibrator;
 
 /**
  * Created by sofietroedsson on 15-04-01.
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 public class Tax extends ActionBarActivity{
 
         private Taxview taxview;
+        private Taxmodel taxmodel;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public class Tax extends ActionBarActivity{
             setContentView(R.layout.activity_tax);
 
             taxview = (Taxview) findViewById(R.id.snake);
+
 
             // Create the sensor listener
             accelerometerListener = new AccelerometerListener();
@@ -94,6 +98,8 @@ public class Tax extends ActionBarActivity{
 
             Log.i("Snake", "MainActivity resumed");
         }
+
+
 
         private void startListening() {
             sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);

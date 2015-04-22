@@ -7,13 +7,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 /**
  * Created by sofietroedsson on 15-04-12.
  */
 
-    public class Taxmodel {
-
+    public class Taxmodel extends ActionBarActivity  {
+        private Tax tax;
+        private MainActivity mainActivity;
 
          //@param boardWidth The board width
          //@param boardHeight The board height
@@ -33,6 +46,8 @@ import java.util.Random;
 
         private int score = 0;
         private String highScore = "";
+
+
 
         private ArrayList<Point> mTaxTrail = new ArrayList<Point>();
         private ArrayList<Point> mApples = new ArrayList<Point>();
@@ -180,6 +195,7 @@ import java.util.Random;
                 updateApples();
                 updateMeat();
                 updateTaxhuvud();
+
             }
         }
         private void updateTaxhuvud(){
@@ -307,7 +323,6 @@ import java.util.Random;
                 score += POINTS_PER_APPLE;
                 addApple();
                 grow();
-                vibrate();
             // Kolla om score är större än 20 då ökar hastigheten
             }
         }
@@ -323,6 +338,7 @@ import java.util.Random;
     }
 
     private void updateMeat() {
+
         Point head = mTaxhuvud.get(0);
         // If head overlaps an apple - remove and add points
         boolean wasRemoved = mMeat.remove(head);
@@ -330,16 +346,21 @@ import java.util.Random;
             score += POINTS_PER_MEAT;
             grow();
             addMeat();
-            vibrate();
+            vibration();
+
             // lägg till samma här.
 
         }
     }
+        private void vibration(){
+          Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+           v.vibrate(300);
+        }
 
-    private void vibrate(){
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(100);
-    }
+
+
+
+
 
     private void grow(){
                 Point addnew = mTaxTrail.get(0);
