@@ -305,7 +305,7 @@ import java.util.Random;
                 score += POINTS_PER_APPLE;
                 addApple();
                 grow();
-
+            // Kolla om score är större än 20 då ökar hastigheten
             }
         }
     private void addMeat() {
@@ -325,8 +325,10 @@ import java.util.Random;
         boolean wasRemoved = mMeat.remove(head);
         if (wasRemoved) {
             score += POINTS_PER_MEAT;
-            addMeat();
             grow();
+            addMeat();
+            // lägg till samma här.
+
         }
     }
 
