@@ -29,3 +29,7 @@ Taxen är synkad och växer ju fler frukter som man äter.
 20/4 -2015
 
 Ändrat färg på kroppen så den matchar huvudet.
+
+22/4-2015
+
+Ändrat i manifest så att alla klasser samlats i en och samma knapp i menun på telefonen.
