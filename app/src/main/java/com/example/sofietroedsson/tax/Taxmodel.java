@@ -1,5 +1,7 @@
 package com.example.sofietroedsson.tax;
 
+import android.content.Context;
+import android.os.Vibrator;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -305,6 +307,7 @@ import java.util.Random;
                 score += POINTS_PER_APPLE;
                 addApple();
                 grow();
+                vibrate();
             // Kolla om score är större än 20 då ökar hastigheten
             }
         }
@@ -327,9 +330,15 @@ import java.util.Random;
             score += POINTS_PER_MEAT;
             grow();
             addMeat();
+            vibrate();
             // lägg till samma här.
 
         }
+    }
+
+    private void vibrate(){
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(100);
     }
 
     private void grow(){
@@ -338,7 +347,7 @@ import java.util.Random;
         }
 
 
-
+public
 
 
     FileReader readfile = null;
