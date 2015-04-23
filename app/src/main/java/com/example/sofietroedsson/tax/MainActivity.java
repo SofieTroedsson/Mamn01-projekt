@@ -2,6 +2,7 @@ package com.example.sofietroedsson.tax;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
@@ -17,12 +19,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = (Button) findViewById(R.id.button);
-        Button button2 = (Button) findViewById(R.id.button2);
-        Button button4 = (Button) findViewById(R.id.button4);
+        ImageButton button = (ImageButton) findViewById(R.id.button);
+        ImageButton button2 = (ImageButton) findViewById(R.id.button2);
+        ImageButton button3 = (ImageButton) findViewById(R.id.button3);
         button.setOnClickListener(this);
         button2.setOnClickListener(this);
-        button4.setOnClickListener(this);
+        button3.setOnClickListener(this);
 
     }
 
@@ -41,7 +43,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 vib.vibrate(500);
                 break;
             }
-            case R.id.button4:{
+            case R.id.button3:{
                 startActivity(new Intent(this, highScore.class));
                 vib.vibrate(500);
                 break;
