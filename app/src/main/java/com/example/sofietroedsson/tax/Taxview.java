@@ -2,6 +2,8 @@ package com.example.sofietroedsson.tax;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -20,9 +22,10 @@ import android.view.MotionEvent;
 public class Taxview extends View{
 
         private Taxmodel taxModel;
-        private Drawable greenImage, redImage, yellowImage, taxImage;
+        private Drawable greenImage, redImage, yellowImage, taxImage, backImage;
         private long mLastMove, mMoveDelay = 400; // milliseconds
         private Context context;
+
 
         public Taxview(Context context, AttributeSet attributes) {
             super(context, attributes);
@@ -33,6 +36,7 @@ public class Taxview extends View{
             redImage = res.getDrawable(R.drawable.redstar);
             yellowImage = res.getDrawable(R.drawable.yellowstar);
             taxImage = res.getDrawable(R.drawable.taxhuvud);
+            backImage = res.getDrawable( R.drawable.background);
 
             this.setOnTouchListener(new SnakeTouchListener());
             this.context = context;
@@ -65,12 +69,13 @@ public class Taxview extends View{
                 startAnimation();
             }
 
-            drawBorder(canvas);
+           //drawBorder(canvas);
             drawApples(canvas);
             drawTrail(canvas);
             drawTaxhuvud(canvas);
             drawStatus(canvas);
             drawMeet(canvas);
+
         }
 
         // This class defines actions on touch events.

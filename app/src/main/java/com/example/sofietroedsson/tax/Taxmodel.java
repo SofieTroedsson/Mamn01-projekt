@@ -1,6 +1,7 @@
 package com.example.sofietroedsson.tax;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,6 +15,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -35,6 +37,7 @@ import android.view.View;
             this.boardWidth = boardWidth;
             this.boardHeight = boardHeight;
             mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            mPlayer = MediaPlayer.create(context.getApplicationContext(), R.raw.sound);
         }
 
 
@@ -53,9 +56,10 @@ import android.view.View;
 
         private ArrayList<Point> mTaxTrail = new ArrayList<Point>();
         private ArrayList<Point> mApples = new ArrayList<Point>();
-    private ArrayList<Point> mMeat = new ArrayList<Point>();
-    private ArrayList<Point> mTaxhuvud = new ArrayList<Point>();
+        private ArrayList<Point> mMeat = new ArrayList<Point>();
+        private ArrayList<Point> mTaxhuvud = new ArrayList<Point>();
         private Vibrator mVibrator;
+        private MediaPlayer mPlayer;
         private static final Random random = new Random();
 
         /**
@@ -229,6 +233,7 @@ import android.view.View;
                     break;
             }
 
+
             if (snakeIsOutsideBoard(newHead)) {
                 setState(State.LOSE);
                 return;
@@ -247,12 +252,6 @@ import android.view.View;
                 }
             }
 
-
-          // for(Point taxHead : mTaxhuvud ){
-          //     if(newTrail.equals(head)) {
-          //         setState(State.LOSE);
-          //     }
-          // }
             mTaxhuvud.add(0, newHead);
             mTaxhuvud.remove(mTaxhuvud.size() - 1);
             mTaxTrail.add(0, newTrail);
@@ -324,7 +323,9 @@ import android.view.View;
             // If head overlaps an apple - remove and add points
             boolean wasRemoved = mApples.remove(head);
             if (wasRemoved) {
+                mPlayer.start();
                 mVibrator.vibrate(300);
+
                 score += POINTS_PER_APPLE;
                 addApple();
                 grow();
@@ -348,30 +349,20 @@ import android.view.View;
         // If head overlaps an apple - remove and add points
         boolean wasRemoved = mMeat.remove(head);
         if (wasRemoved) {
+            mPlayer.start();
             mVibrator.vibrate(300);
             score += POINTS_PER_MEAT;
             grow();
             addMeat();
 
-
-            // lägg till samma här.
-
         }
     }
-
-
-
-
-
 
 
     private void grow(){
                 Point addnew = mTaxTrail.get(0);
             mTaxTrail.add(0,addnew);
         }
-
-
-public
 
 
     FileReader readfile = null;
