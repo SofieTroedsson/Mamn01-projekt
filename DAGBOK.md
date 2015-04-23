@@ -33,3 +33,8 @@ Taxen är synkad och växer ju fler frukter som man äter.
 22/4-2015
 
 Ändrat i manifest så att alla klasser samlats i en och samma knapp i menun på telefonen.
+
+
+23/4-2015
+
+Lagt till vibration och ljud när taxen äter. Har även bytat bakgrunden på spelet.
