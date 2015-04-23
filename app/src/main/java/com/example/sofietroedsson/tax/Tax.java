@@ -19,7 +19,11 @@ import android.os.Vibrator;
 public class Tax extends ActionBarActivity{
 
         private Taxview taxview;
-        private Taxmodel taxmodel;
+        private Taxmodel taxModel;
+
+    private SensorManager sensorManager;
+    private Sensor accelerometerSensor;
+    private AccelerometerListener accelerometerListener;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +31,13 @@ public class Tax extends ActionBarActivity{
             setContentView(R.layout.activity_tax);
 
             taxview = (Taxview) findViewById(R.id.snake);
-
+            taxModel = taxview.getTaxModel();
 
             // Create the sensor listener
             accelerometerListener = new AccelerometerListener();
+            Log.i("SnakeSensor", "Done with onCreate");
 
         }
-
-        private SensorManager sensorManager;
-        private Sensor accelerometerSensor;
-        private AccelerometerListener accelerometerListener;
-
 
         // A listener for sensor events
         private class AccelerometerListener implements SensorEventListener {
@@ -51,20 +51,25 @@ public class Tax extends ActionBarActivity{
                 double az = event.values[2];
                 long time = event.timestamp;
 
-                Taxmodel taxModel = taxview.getTaxModel();
 
-                if(ay > ACC_THRESHOLD) {
-                    Log.i("SnakeSensor", "South down");
-                    taxModel.setDirection(Direction.SOUTH);
-                }else if(ay < -ACC_THRESHOLD) {
-                    Log.i("SnakeSensor", "North down");
-                    taxModel.setDirection(Direction.NORTH); }
-                if(ax > ACC_THRESHOLD) {
-                    Log.i("SnakeSensor", "West down");
-                    taxModel.setDirection(Direction.WEST);
-                }else if(ax < -ACC_THRESHOLD) { Log.i("SnakeSensor", "East down");
-                    taxModel.setDirection(Direction.EAST); }
-
+                if(taxModel == null){
+                    taxModel = taxview.getTaxModel();
+                }    else {
+                    if (ay > ACC_THRESHOLD) {
+                        Log.i("SnakeSensor", "South down");
+                        taxModel.setDirection(Direction.SOUTH);
+                    } else if (ay < -ACC_THRESHOLD) {
+                        Log.i("SnakeSensor", "North down");
+                        taxModel.setDirection(Direction.NORTH);
+                    }
+                    if (ax > ACC_THRESHOLD) {
+                        Log.i("SnakeSensor", "West down");
+                        taxModel.setDirection(Direction.WEST);
+                    } else if (ax < -ACC_THRESHOLD) {
+                        Log.i("SnakeSensor", "East down");
+                        taxModel.setDirection(Direction.EAST);
+                    }
+                }
                 // This is where you put the code checking the values
                 // ax and ay (acceleration in x and y direction).
                 // If ax > e.g. 2.0 m/s2, turn the snake WEST by calling

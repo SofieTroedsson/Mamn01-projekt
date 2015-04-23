@@ -31,10 +31,12 @@ import android.view.View;
          //@param boardWidth The board width
          //@param boardHeight The board height
 
-        public Taxmodel(int boardWidth, int boardHeight) {
+        public Taxmodel(int boardWidth, int boardHeight, Context context) {
             this.boardWidth = boardWidth;
             this.boardHeight = boardHeight;
+            mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         }
+
 
         public static final int POINTS_PER_APPLE = 1;
         public static final int POINTS_PER_MEAT = 2;
@@ -53,7 +55,7 @@ import android.view.View;
         private ArrayList<Point> mApples = new ArrayList<Point>();
     private ArrayList<Point> mMeat = new ArrayList<Point>();
     private ArrayList<Point> mTaxhuvud = new ArrayList<Point>();
-
+        private Vibrator mVibrator;
         private static final Random random = new Random();
 
         /**
@@ -66,6 +68,8 @@ import android.view.View;
             mApples.clear();
             mMeat.clear();
             mTaxhuvud.clear();
+
+
 
             int startX = boardWidth/2;
             int startY = boardHeight/2;
@@ -320,6 +324,7 @@ import android.view.View;
             // If head overlaps an apple - remove and add points
             boolean wasRemoved = mApples.remove(head);
             if (wasRemoved) {
+                mVibrator.vibrate(300);
                 score += POINTS_PER_APPLE;
                 addApple();
                 grow();
@@ -343,19 +348,17 @@ import android.view.View;
         // If head overlaps an apple - remove and add points
         boolean wasRemoved = mMeat.remove(head);
         if (wasRemoved) {
+            mVibrator.vibrate(300);
             score += POINTS_PER_MEAT;
             grow();
             addMeat();
-            vibration();
+
 
             // lägg till samma här.
 
         }
     }
-        private void vibration(){
-          Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-           v.vibrate(300);
-        }
+
 
 
 

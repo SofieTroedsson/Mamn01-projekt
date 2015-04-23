@@ -22,6 +22,7 @@ public class Taxview extends View{
         private Taxmodel taxModel;
         private Drawable greenImage, redImage, yellowImage, taxImage;
         private long mLastMove, mMoveDelay = 400; // milliseconds
+        private Context context;
 
         public Taxview(Context context, AttributeSet attributes) {
             super(context, attributes);
@@ -34,6 +35,8 @@ public class Taxview extends View{
             taxImage = res.getDrawable(R.drawable.taxhuvud);
 
             this.setOnTouchListener(new SnakeTouchListener());
+            this.context = context;
+
         }
 
         public void startAnimation() {
@@ -194,10 +197,11 @@ public class Taxview extends View{
         private void initModel() {
             int tilesX = 20;
             int tilesY = this.getHeight() * tilesX / this.getWidth();
-            taxModel = new Taxmodel(tilesX, tilesY);
+            taxModel = new Taxmodel(tilesX, tilesY, context);
             calculateMetrics();
 
             taxModel.initNewGame();
+            Log.i("initModel","taxModel created! Everything setup. Game started");
         }
 
         private void calculateMetrics() {
