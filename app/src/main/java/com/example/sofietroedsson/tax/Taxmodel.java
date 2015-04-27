@@ -1,6 +1,10 @@
 package com.example.sofietroedsson.tax;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import java.io.BufferedReader;
@@ -51,6 +55,8 @@ import android.view.View;
 
         private int score = 0;
         private String highScore = "";
+        private Matrix matrix = new Matrix();
+
 
 
 
@@ -216,18 +222,22 @@ import android.view.View;
                 case NORTH:
                     newHead = new Point(head.x, head.y - 1);
                     newTrail = new Point(trail.x, trail.y - 1);
+
                     break;
                 case SOUTH:
                     newHead = new Point(head.x, head.y + 1);
                     newTrail = new Point(trail.x, trail.y + 1);
+
                     break;
                 case EAST:
                     newHead = new Point(head.x + 1, head.y);
                     newTrail = new Point(trail.x + 1 , head.y );
+
                     break;
                 case WEST:
                     newHead = new Point(head.x - 1, head.y);
                     newTrail = new Point(trail.x -1, trail.y );
+
                     break;
                 default:
                     break;

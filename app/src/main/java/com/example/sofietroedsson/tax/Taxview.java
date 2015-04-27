@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -14,17 +15,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 
 
 /**
  * Created by sofietroedsson on 15-04-12.
  */
-public class Taxview extends View{
+public class Taxview extends View {
 
         private Taxmodel taxModel;
         private Drawable greenImage, redImage, yellowImage, taxImage, backImage;
         private long mLastMove, mMoveDelay = 400; // milliseconds
         private Context context;
+        private Matrix matrix;
 
 
         public Taxview(Context context, AttributeSet attributes) {
@@ -37,7 +40,7 @@ public class Taxview extends View{
             yellowImage = res.getDrawable(R.drawable.yellowstar);
             taxImage = res.getDrawable(R.drawable.taxhuvud);
             backImage = res.getDrawable( R.drawable.background);
-
+            matrix = new Matrix();
             this.setOnTouchListener(new SnakeTouchListener());
             this.context = context;
 
@@ -155,7 +158,7 @@ public class Taxview extends View{
             }
         }
 
-        private void drawTaxhuvud(Canvas canvas){
+        public void drawTaxhuvud(Canvas canvas){
             for(Point p : taxModel.getTaxhuvud()){
                 int left = (int) (tileXPixels * p.x);
                 int top = (int) (tileYPixels * p.y);

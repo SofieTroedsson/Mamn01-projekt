@@ -8,6 +8,6 @@
     <string name="information">High Score</string>
     <string name="sound_on">Sound ON</string>
     <string name="sound_off">Sound OFF</string>
-    <string name="music_on">Music ON</string>
-    <string name="music_off">Music OFF</string>
+    <string name="music_on">Vibration ON</string>
+    <string name="music_off">Vibration OFF</string>
 </resources>
