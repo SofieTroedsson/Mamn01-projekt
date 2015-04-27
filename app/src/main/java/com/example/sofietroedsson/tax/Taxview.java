@@ -190,7 +190,7 @@ public class Taxview extends View{
 
         private void drawStatus(Canvas canvas) {
             mPaint.setTextSize(36);
-            mPaint.setColor(Color.DKGRAY);
+            mPaint.setColor(Color.BLACK);
             String message = "Score: " + taxModel.getScore() + " | "
                     + taxModel.getState().toString();
             canvas.drawText(message, 100, (int) (heightPixels - 100), mPaint);
