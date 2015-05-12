@@ -231,12 +231,12 @@ import android.view.View;
                     break;
                 case EAST:
                     newHead = new Point(head.x + 1, head.y);
-                    newTrail = new Point(trail.x + 1 , head.y );
+                    newTrail = new Point(trail.x + 2 , head.y );
 
                     break;
                 case WEST:
                     newHead = new Point(head.x - 1, head.y);
-                    newTrail = new Point(trail.x -1, trail.y );
+                    newTrail = new Point(trail.x -2, trail.y );
 
                     break;
                 default:

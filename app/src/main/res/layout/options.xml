@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:text="@string/sound_on"
         android:id="@+id/checkBox"
-        android:textColor="#FFFCFBFF"
+        android:textColor="#ff000000"
         android:layout_above="@+id/checkBox3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -53,14 +53,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/checkBox"
-        android:textColor="#FFFCFBFF" />
+        android:textColor="#ff000000" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/music_on"
         android:id="@+id/checkBox3"
-        android:textColor="#FFFCFBFF"
+        android:textColor="#ff000000"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/checkBox"
         android:layout_alignEnd="@+id/checkBox" />
@@ -73,6 +73,6 @@
         android:layout_alignBottom="@+id/checkBox3"
         android:layout_alignLeft="@+id/checkBox2"
         android:layout_alignStart="@+id/checkBox2"
-        android:textColor="#FFFCFBFF" />
+        android:textColor="#ff000000" />
 
 </RelativeLayout>
