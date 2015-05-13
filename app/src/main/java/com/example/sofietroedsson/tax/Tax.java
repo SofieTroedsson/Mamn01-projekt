@@ -12,84 +12,40 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Vibrator;
+import android.view.View;
 
 /**
  * Created by sofietroedsson on 15-04-01.
  */
-public class Tax extends ActionBarActivity{
+public class Tax extends ActionBarActivity {
 
         private Taxview taxview;
-        private Taxmodel taxModel;
+
 
     private SensorManager sensorManager;
-    private Sensor accelerometerSensor;
-    private AccelerometerListener accelerometerListener;
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
+            Log.d("ONCREATE", "ONCREATE STARTING");
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_tax);
 
             taxview = (Taxview) findViewById(R.id.snake);
-            taxModel = taxview.getTaxModel();
-
-            // Create the sensor listener
-            accelerometerListener = new AccelerometerListener();
-            Log.i("SnakeSensor", "Done with onCreate");
+            sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            Log.d("ONCREATE", "ONCREATE DONE");
 
         }
 
-        // A listener for sensor events
-        private class AccelerometerListener implements SensorEventListener {
-
-            private final float ACC_THRESHOLD = 2.0F;
-
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                double ax = event.values[0];
-                double ay = event.values[1];
-                double az = event.values[2];
-                long time = event.timestamp;
-
-
-                if(taxModel == null){
-                    taxModel = taxview.getTaxModel();
-                }    else {
-                    if (ay > ACC_THRESHOLD) {
-                        Log.i("SnakeSensor", "South down");
-                        taxModel.setDirection(Direction.SOUTH);
-                    } else if (ay < -ACC_THRESHOLD) {
-                        Log.i("SnakeSensor", "North down");
-                        taxModel.setDirection(Direction.NORTH);
-                    }
-                    if (ax > ACC_THRESHOLD) {
-                        Log.i("SnakeSensor", "West down");
-                        taxModel.setDirection(Direction.WEST);
-                    } else if (ax < -ACC_THRESHOLD) {
-                        Log.i("SnakeSensor", "East down");
-                        taxModel.setDirection(Direction.EAST);
-                    }
-                }
-                // This is where you put the code checking the values
-                // ax and ay (acceleration in x and y direction).
-                // If ax > e.g. 2.0 m/s2, turn the snake WEST by calling
-                // snakeModel.setDirection(Direction.WEST)
-                // (or turn EAST? - you figure that out).
-                // Then check the value of ay and so on.
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-                // …
-            }
-        }
 
         @Override
         protected void onPause() {
             super.onPause();
             taxview.pauseAnimation();
+            taxview.stopListening(sensorManager);
+
             // Unregister the sensor listener
-            stopListening();
+
 
             Log.i("Snake", "MainActivity paused");
         }
@@ -97,33 +53,20 @@ public class Tax extends ActionBarActivity{
         @Override
         protected void onResume() {
             super.onResume();
-            taxview.resumeAnimation();
+            taxview.startListening(sensorManager);
+
+
             // Register the sensor listener
-            startListening();
+
+
 
             Log.i("Snake", "MainActivity resumed");
         }
 
+    }
 
 
-        private void startListening() {
-            sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-            Sensor accelerometer = sensorManager
-                    .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            sensorManager.registerListener(accelerometerListener, accelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }
-
-        private void stopListening() {
-            if (sensorManager != null) {
-                sensorManager.unregisterListener(accelerometerListener);
-            }
-        }
-
-
-
-
-        //@Override
+    //@Override
        // public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
          //   getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -145,5 +88,5 @@ public class Tax extends ActionBarActivity{
 
 //            return super.onOptionsItemSelected(item);
         //}
-    }
+
 
