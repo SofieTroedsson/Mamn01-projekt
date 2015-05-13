@@ -42,3 +42,7 @@ Lagt till vibration och ljud när taxen äter. Har även bytat bakgrunden på sp
 12/5
 
 Uppdaterat bilderna för highscore och settings.
+
+13/5
+
+Fixat så att taxen inte kan gå in i sig själv, och så att huvudet är på rätt plats. 
