@@ -46,3 +46,7 @@ Uppdaterat bilderna för highscore och settings.
 13/5
 
 Fixat så att taxen inte kan gå in i sig själv, och så att huvudet är på rätt plats. 
+
+14/5
+
+Fixat så att kroppen och huvudet är åt rätt håll. 
