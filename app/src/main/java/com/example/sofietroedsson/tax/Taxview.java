@@ -222,6 +222,10 @@ public class Taxview extends View {
                 long now = System.currentTimeMillis();
 
                 if (now - mLastMove > mMoveDelay) {
+                    if(taxModel.increaseSpeed >=3){
+                        mMoveDelay -= 100;
+                        taxModel.increaseSpeed = 0;
+                    }
                     taxModel.move();
                     this.invalidate();
                     mLastMove = now;

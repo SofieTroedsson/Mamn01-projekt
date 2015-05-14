@@ -37,6 +37,7 @@ public class Taxmodel extends ActionBarActivity {
     private MainActivity mainActivity;
     private boolean mListening;
     private Direction mLatestSensorDirection;
+    public int increaseSpeed;
 
     //@param boardWidth The board width
     //@param boardHeight The board height
@@ -47,6 +48,7 @@ public class Taxmodel extends ActionBarActivity {
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         mPlayer = MediaPlayer.create(context.getApplicationContext(), R.raw.sound);
         mListening = false;
+        increaseSpeed = 0;
 
 
     }
@@ -262,42 +264,7 @@ public class Taxmodel extends ActionBarActivity {
         mTaxTrail.add(0, newHead);
         mTaxTrail.remove(mTaxTrail.size() - 1);
     }
-       /* private void updateSnake() {
-            Point trail = mTaxTrail.get(0);
-            Point newTrail = null;
 
-
-
-            switch (mDirection) {
-                case NORTH:
-                    newTrail = new Point(trail.x, trail.y - 1);
-                    break;
-                case SOUTH:
-                    newTrail = new Point(trail.x, trail.y + 1);
-                    break;
-                case EAST:
-                    newTrail = new Point(trail.x + 1, trail.y);
-                    break;
-                case WEST:
-                    newTrail = new Point(trail.x - 1, trail.y);
-                    break;
-                default:
-                    break;
-            }
-
-            // Ormen åker in i vägen
-
-            for(Point body : mTaxTrail ){
-                if(newTrail.equals(body)) {
-                    setState(State.LOSE);
-                }
-            }
-
-            // So far, so good. Add the new head and remove the tail
-            mTaxTrail.add(0, newTrail);
-            mTaxTrail.remove(mTaxTrail.size() - 1);
-
-        }*/
 
     private boolean snakeIsOutsideBoard(Point head) {
         if (head.x >= boardWidth)
@@ -330,7 +297,7 @@ public class Taxmodel extends ActionBarActivity {
         if (wasRemoved) {
             mPlayer.start();
             mVibrator.vibrate(300);
-
+            increaseSpeed += 1;
             score += POINTS_PER_APPLE;
             addApple();
             grow();
@@ -358,6 +325,7 @@ public class Taxmodel extends ActionBarActivity {
             mPlayer.start();
             mVibrator.vibrate(300);
             score += POINTS_PER_MEAT;
+            increaseSpeed += 1;
             grow();
             addMeat();
 
