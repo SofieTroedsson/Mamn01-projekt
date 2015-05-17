@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.ImageView;
 
 /**
  * Created by sofietroedsson on 15-04-01.
@@ -20,6 +21,7 @@ import android.view.View;
 public class Tax extends ActionBarActivity {
 
         private Taxview taxview;
+    private ImageView gameOver;
 
 
     private SensorManager sensorManager;
@@ -30,8 +32,9 @@ public class Tax extends ActionBarActivity {
             Log.d("ONCREATE", "ONCREATE STARTING");
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_tax);
-
             taxview = (Taxview) findViewById(R.id.snake);
+            gameOver = (ImageView) findViewById(R.id.snake_text);
+            taxview.setGameOverScreen(gameOver);
             sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
             Log.d("ONCREATE", "ONCREATE DONE");
 

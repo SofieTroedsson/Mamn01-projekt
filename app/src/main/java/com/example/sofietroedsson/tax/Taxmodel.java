@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 /**
  * Created by sofietroedsson on 15-04-12.
@@ -42,24 +43,25 @@ public class Taxmodel extends ActionBarActivity {
     //@param boardWidth The board width
     //@param boardHeight The board height
 
-    public Taxmodel(int boardWidth, int boardHeight, Context context) {
+    public Taxmodel(int boardWidth, int boardHeight, Context context, ImageView imageText) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
+        mImageText = imageText;
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         mPlayer = MediaPlayer.create(context.getApplicationContext(), R.raw.sound);
         mListening = false;
         increaseSpeed = 0;
-
-
     }
 
 
     public static final int POINTS_PER_APPLE = 1;
     public static final int POINTS_PER_MEAT = 2;
 
-    private int boardWidth, boardHeight;
+    private int boardWidth;
+    private int boardHeight;
+    private ImageView mImageText;
 
-    private State mState = State.READY;
+    private State mState = State.PAUSED;
     private Direction mDirection = Direction.NORTH;
 
     private int score = 0;
@@ -152,7 +154,6 @@ public class Taxmodel extends ActionBarActivity {
         }
         // Prevent the snake from turning back on itself
         if (direction == Direction.NORTH) {
-            Log.d("DIRECTION", "Changing direction to from NORTH ");
             if (mDirection != Direction.SOUTH) {
                 mDirection = direction;
             }
@@ -160,7 +161,6 @@ public class Taxmodel extends ActionBarActivity {
         }
 
         if (direction == Direction.SOUTH) {
-            Log.d("DIRECTION", "Changing direction from SOUTH ");
             if (mDirection != Direction.NORTH) {
                 mDirection = direction;
             }
@@ -168,7 +168,6 @@ public class Taxmodel extends ActionBarActivity {
         }
 
         if (direction == Direction.EAST) {
-            Log.d("DIRECTION", "Changing direction from EAST ");
             if (mDirection != Direction.WEST) {
                 mDirection = direction;
             }
@@ -176,7 +175,6 @@ public class Taxmodel extends ActionBarActivity {
         }
 
         if (direction == Direction.WEST) {
-            Log.d("DIRECTION", "Changing direction from WEST ");
             if (mDirection != Direction.EAST) {
                 mDirection = direction;
             }
@@ -198,14 +196,18 @@ public class Taxmodel extends ActionBarActivity {
         } else if (mState == State.READY && newState == State.RUNNING) {
             mState = State.RUNNING;
 
-        } else if (mState == State.RUNNING && newState == State.LOSE
-                || newState == State.PAUSED) {
+        } else if (mState == State.RUNNING && newState == State.LOSE) {
+            mState = newState;
+            mImageText.setVisibility(View.VISIBLE);
+
+        } else if (mState == State.RUNNING && newState == State.PAUSED) {
             mState = newState;
 
-
         } else if (mState != State.RUNNING && newState == State.READY) {
+            Log.d("State", "Restarting now!");
+            mImageText.setVisibility(View.INVISIBLE);
             initNewGame();
-            mState = State.READY;
+            mState = State.RUNNING;
         }
     }
 
@@ -248,12 +250,15 @@ public class Taxmodel extends ActionBarActivity {
 
         if (snakeIsOutsideBoard(newHead)) {
             setState(State.LOSE);
+
             return;
         }
 
         for (Point body : mTaxTrail) {
             if (newHead.equals(body)) {
                 setState(State.LOSE);
+                return;
+
             }
         }
         //Now the old head is a tail!
@@ -362,8 +367,4 @@ public class Taxmodel extends ActionBarActivity {
         }
 
     }
-
-
 }
-
-
