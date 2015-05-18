@@ -3,6 +3,7 @@ package com.example.sofietroedsson.tax;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -196,10 +197,10 @@ public class Taxview extends View implements Shake.OnShakeListener{
     }
 
     private void drawStatus(Canvas canvas) {
-        mPaint.setTextSize(36);
+        mPaint.setTextSize(46);
+        mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         mPaint.setColor(Color.BLACK);
-        String message = "Score: " + taxModel.getScore() + " | "
-                + taxModel.getState().toString();
+        String message = "Score: " + taxModel.getScore();
         canvas.drawText(message, 100, (int) (heightPixels - 100), mPaint);
     }
 
