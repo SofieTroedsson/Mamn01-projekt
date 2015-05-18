@@ -50,3 +50,9 @@ Fixat så att taxen inte kan gå in i sig själv, och så att huvudet är på r�
 14/5
 
 Fixat så att kroppen och huvudet är åt rätt håll. 
+
+
+18/5
+
+Ändrat bilden på highscore och den gröna ploppen som taxen äter
+
